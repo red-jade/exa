@@ -4,6 +4,20 @@
 
 EXA is a collection of utility libraries for Elixir.
 
+The main targets of development are:
+- utils for Elixir datatypes (Core)
+- standard library for new data structures (Std)
+- parsing/serialization I/O for various formats
+- simple domain models for existing standards
+- spatial types (2D, 3D, GIS), some computational geometry
+- colors (byte, hex, float, names) and color model conversion
+- bitmaps and images (I, IA, RGB, RGBA) and image I/O
+- image processing (r/w, subimage, reflect, rotate, resize, filter, etc.)
+- fonts (read, process, index, unicode)
+- graphics (2D, image, text, 3D)
+- some web stuff (XML, HTML, CSS, SVG)
+- data formats (CSV, JSON, XML)
+
 This EXA repo is just the index for all the individual libraries.
 
 ## Principles
@@ -20,12 +34,12 @@ The general approach for EXA is:
 - quality:
   - not (yet) production quality 
   - starting point for custom solutions
-- code style
+- code style:
   - follow Elixir patterns and practices
   - no macro meta-programming (maybe some in the future)
   - old-style typespecs, for documentation as much as for dialyzer
   - separate modules for types and constants
-  - use logger, ExUnit, ExDoc
+  - use standard tools, e.g. `Logger`, `ExUnit`, `ExDoc`
 
 EXA aims to be as self-contained as possible, 
 but there are some exceeptions:
@@ -45,11 +59,11 @@ Repo link: [exa_core](https://github.com/red-jade/exa_core)
   `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,
   `Text` (chardata), `Message`, `Option`, `Process`, `Random`, `System`.
   
-- `Indent`: an indentable text output formatter
+- `Indent`: an indentable text output formatter.
   
 - `Math`: floating-point arithmetic and wrappers for Erlang `:math`.
   
-- Trivial wrappers for Http, Logger.
+- Trivial functions for `Http`, `Logger`.
 
 - `Parse`: basic combinators for simple types.
 
@@ -61,7 +75,7 @@ Repo link: [exa_core](https://github.com/red-jade/exa_core)
 
 Many Exa Core modules have the same name as the 
 built-in Elixir standard library.
-The idea is not to import or alias Exa Core, 
+The idea is not to import or alias `Exa` Core, 
 but always use the fully qualified module name.
 It is not accidental that `Exa` is a short prefix.
 
