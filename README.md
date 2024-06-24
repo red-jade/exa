@@ -37,23 +37,28 @@ The general approach for EXA is:
 - code style:
   - follow Elixir patterns and practices
   - no macro meta-programming (maybe some in the future)
-  - old-style typespecs, for documentation as much as for dialyzer
+  - old-style typespecs, for documentation, as much as for dialyzer
   - separate modules for types and constants
   - use standard tools, e.g. `Logger`, `ExUnit`, `ExDoc`
+  - only use tools that work in git bash shell
+- packaging:
+  - all libraries all the way
+  - no web service APIs
+  - no containers, Docker, K8s, or cloud deployment
 
 EXA aims to be as self-contained as possible, 
 but there are some exceeptions:
 - contains a fork of Wings3D E3D Erlang for image handling
-- use of Wings3D native interfaces for OpenGL
+- use of Wings3D native interfaces for OpenGL and WX UI
 - (possible use of the _Nx_ Elixir tensor library in the future)
 
 ## Libraries
 
-#### Exa Core 
+### Exa Core 
 
 Module path: `Exa`
 
-Repo link: [exa_core](https://github.com/red-jade/exa_core)
+Repo link: `[exa_core](https://github.com/red-jade/exa_core)`
 
 - Utilities relating to specific language modules or features:
   `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,
@@ -62,8 +67,6 @@ Repo link: [exa_core](https://github.com/red-jade/exa_core)
 - `Indent`: an indentable text output formatter.
   
 - `Math`: floating-point arithmetic and wrappers for Erlang `:math`.
-  
-- Trivial functions for `Http`, `Logger`.
 
 - `Parse`: basic combinators for simple types.
 
@@ -71,9 +74,11 @@ Repo link: [exa_core](https://github.com/red-jade/exa_core)
 
 - `Stopwatch`: for simple timing and benchmarking tasks.
 
+- Trivial functions for `Http`, `Logger`.
+
 - Type conversions.
 
-Many Exa Core modules have the same name as the 
+Many EXA Core modules have the same name as the 
 built-in Elixir standard library.
 The idea is not to import or alias `Exa` Core, 
 but always use the fully qualified module name.
@@ -83,7 +88,7 @@ It is not accidental that `Exa` is a short prefix.
 
 Exa source code is released under the MIT license.
 
-Exa code and documentation are:
+Exa code and documentation are:<br>
 Copyright (C) 2024 Mike French
 
 
