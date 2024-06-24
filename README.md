@@ -58,9 +58,9 @@ but there are some exceeptions:
 
 Module path: `Exa`
 
-Repo link: `[exa_core](https://github.com/red-jade/exa_core)`
+Repo link: [exa_core](https://github.com/red-jade/exa_core)
 
-- Utilities relating to specific language modules or features:
+- Utilities relating to specific language modules or features:<br>
   `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,
   `Text` (chardata), `Message`, `Option`, `Process`, `Random`, `System`.
   
@@ -86,9 +86,9 @@ It is not accidental that `Exa` is a short prefix.
 
 ## License
 
-Exa source code is released under the MIT license.
+EXA source code is released under the MIT license.
 
-Exa code and documentation are:<br>
+EXA code and documentation are:<br>
 Copyright (C) 2024 Mike French
 
 
