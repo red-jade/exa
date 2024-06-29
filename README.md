@@ -4,6 +4,8 @@
 
 EXA is a collection of utility libraries for Elixir.
 
+## Domains
+
 The main targets of development are:
 - utils for Elixir datatypes (Core)
 - standard library for new data structures (Std)
@@ -32,7 +34,8 @@ The general approach for EXA is:
   - some data-parallel implementations (e.g. image processing)
   - use _benchee_ for benchmarking
 - quality:
-  - not (yet) production quality 
+  - not production quality 
+  - test suite is sparse
   - starting point for custom solutions
 - code style:
   - follow Elixir patterns and practices
@@ -45,11 +48,14 @@ The general approach for EXA is:
   - all libraries all the way
   - no web service APIs
   - no containers, Docker, K8s, or cloud deployment
+  
+EXA is broad, shallow and open to change,
+rather than narrow, deep and immutable.
 
 EXA aims to be as self-contained as possible, 
-but there are some exceeptions:
-- contains a fork of Wings3D E3D Erlang for image handling
-- use of Wings3D native interfaces for OpenGL and WX UI
+but there are some exceptions:
+- contains a fork of WX E3D Erlang for image handling
+- use of WX native interfaces for OpenGL and WX UI
 - (possible use of the _Nx_ Elixir tensor library in the future)
 
 ## Libraries
@@ -60,8 +66,10 @@ Module path: `Exa`
 
 Repo link: [exa_core](https://github.com/red-jade/exa_core)
 
+Features:
+
 - Utilities relating to specific language modules or features:<br>
-  `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,
+  `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,<br>
   `Text` (chardata), `Message`, `Option`, `Process`, `Random`, `System`.
   
 - `Indent`: an indentable text output formatter.
@@ -84,11 +92,57 @@ The idea is not to import or alias `Exa` Core,
 but always use the fully qualified module name.
 It is not accidental that `Exa` is a short prefix.
 
+### Exa Standard
+
+Module path: `Exa.Std`
+
+Repo link: [exa_std](https://github.com/red-jade/exa_std)
+
+...
+
+### Exa Space 
+
+Module path: `Exa.Space`
+
+Repo link: [exa_space](https://github.com/red-jade/exa_space)
+
+Features:
+
+- Positions: 2i,3i, 2f,3f
+- Vectors: 2i, 2f,3f,4f
+- Bounding box: 1i,2i,3i, 2f
+- Transforms: 
+  - 2x2, 3x3, 4x4 square matrices
+  - affine and homogeneous (projective) transforms
+
+### Exa Color 
+
+Module path: `Exa.Color`
+
+Repo link: [exa_color](https://github.com/red-jade/exa_color)
+
+Features:
+
+- Colors: 1,3,4 byte,float
+- Color models: RGB, HSL
+- Color maps: index => col3b
+- Named CSS colors
+- Pixels and components
+- Conversion utilities: byte,float
+
+### Exa Image
+
+Module path: `Exa.Image`
+
+Repo link: [exa_image](https://github.com/red-jade/exa_image)
+
+...
+
 ## License
 
 EXA source code is released under the MIT license.
 
 EXA code and documentation are:<br>
-Copyright (C) 2024 Mike French
+Copyright (c) 2024 Mike French
 
 
