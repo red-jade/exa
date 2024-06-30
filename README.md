@@ -60,6 +60,14 @@ but there are some exceptions:
 
 ## Libraries
 
+Contents:
+
+- [Exa Core](#exa-core)
+- [Exa Standard Library](#exa-standard)
+- [Exa Space](#exa-space)
+- [Exa Color](#exa-color)
+- [Exa Image](#exa-image)
+
 ### Exa Core 
 
 Module path: `Exa`
@@ -98,7 +106,17 @@ Module path: `Exa.Std`
 
 Repo link: [exa_std](https://github.com/red-jade/exa_std)
 
-...
+Features:
+
+- Histograms for positive integer labels (IDs)
+  - 1D using the Erlang `:array` module
+  - 2D, 3D sparse histograms using Elixir `Map` module
+- Run Length Encoding (RLE):
+  - general for lists of any type
+  - integers, using lossless binary delta-compression
+- Map of Lists (MoL)
+- Character Stream: incremental char from a binary String with line/column address
+- Tidal: managing out-of-order streaming sequence
 
 ### Exa Space 
 
