@@ -154,9 +154,42 @@ Module path: `Exa.Image`
 
 Repo link: [exa_image](https://github.com/red-jade/exa_image)
 
-...
+Bitmap:
 
-## License
+- bitmap: create, access, update, output to ascii art and image
+- bitmap/image: bitmap to alpha, bitmap matte composition
+
+Image:
+
+- all 1,3,4 byte pixel types
+- image: create, access, update, sub-image
+- basic ops: crop, reflect, rotate, histogram
+- colormap to image; expand index image using colormap
+- map/reduce over pixels
+- sample nearest/bilinear
+- convolve kernels over subimages
+- downsize, upsize and resize (integer multiple only)
+- split and merge for chunked parallel processing
+
+Image I/O
+- fork of E3D to read/write PNG/TIF/BMP formats
+- read/write _portable_ PBM/PGM/PBM text/binary formats
+
+### E3D License
+
+The `Exa.Image` repo contains the image subset of E3D
+copied (forked) from Wings3D on 23 November 2023 (v2.3):
+
+https://github.com/dgud/wings
+
+See the file `exa_image/src/e3d/license.terms` for licensing.
+
+See source file headers for author credit and copyright:
+
+All files are: <br>
+Copyright (c) Dan Gudmundsson
+
+## EXA License
 
 EXA source code is released under the MIT license.
 
