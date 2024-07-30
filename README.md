@@ -11,14 +11,16 @@ The main targets of development are:
 - standard library for new data structures (Std)
 - parsing/serialization I/O for various formats
 - simple domain models for existing standards
-- spatial types (2D, 3D, GIS), some computational geometry
+- spatial types (2D, 3D), some 2D computational geometry
 - colors (byte, hex, float, names) and color model conversion
 - bitmaps and images (I, IA, RGB, RGBA) and image I/O
 - image processing (r/w, subimage, reflect, rotate, resize, filter, etc.)
-- fonts (read, process, index, unicode)
+- fonts (read, process, index, unicode, symbols)
 - graphics (2D, image, text, 3D)
+- GIS geometry and file formats (CSV, GeoJSON).
 - some web stuff (XML, HTML, CSS, SVG)
-- data formats (CSV, JSON, XML)
+- graph formats (GraphViz DOT)
+- other data formats (CSV, JSON, XML)
 
 This EXA repo is just the index for all the individual libraries.
 
@@ -58,6 +60,10 @@ but there are some exceptions:
 - use of WX native interfaces for OpenGL and WX UI
 - (possible use of the _Nx_ Elixir tensor library in the future)
 
+There are some command line interfaces to installed programs:
+- GraphViz DOT for drawing directed graphs
+- FFMPEG (ffmpeg, ffprobe, ffplay) for video processing
+
 ## Libraries
 
 Contents:
@@ -67,6 +73,10 @@ Contents:
 - [Exa Space](#exa-space)
 - [Exa Color](#exa-color)
 - [Exa Image](#exa-image)
+- [Exa Json](#exa-json)
+- [Exa Csv](#exa-csv)
+- [Exa Dot](#exa-dot)
+- [Exa Gis](#exa-gis)
 
 ### Exa Core 
 
@@ -74,7 +84,7 @@ Module path: `Exa`
 
 Repo link: [exa_core](https://github.com/red-jade/exa_core)
 
-Features:
+Features: 
 
 - Utilities relating to specific language modules or features:<br>
   `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,<br>
@@ -114,9 +124,10 @@ Features:
 - Run Length Encoding (RLE):
   - general for lists of any type
   - integers, using lossless binary delta-compression
-- Map of Lists (MoL)
 - Character Stream: incremental char from a binary String with line/column address
-- Tidal: managing out-of-order streaming sequence
+- Tidal: managing out-of-order streaming sequence (integer IDs)
+- Map of Lists (MoL)
+- Yet Another Zip List (yazl): list with local cursor
 
 ### Exa Space 
 
@@ -174,6 +185,64 @@ Image:
 Image I/O
 - fork of E3D to read/write PNG/TIF/BMP formats
 - read/write _portable_ PBM/PGM/PBM text/binary formats
+
+Video (only if [ffmpeg](https://ffmpeg.org/download.html) is installed):
+- create video from image files
+- probe video for information
+
+### Exa Json
+
+Module path: `Exa.Json`
+
+Repo link: [exa_json](https://github.com/red-jade/exa_json)
+
+Features:
+
+- Read JSON files (optionally gzip compressed) and decode JSON data
+- Write JSON files and encode JSON data
+- Configure object conversion 
+- (future GIS extensions)
+
+### Exa Csv
+
+Module path: `Exa.Csv`
+
+Repo link: [exa_csv](https://github.com/red-jade/exa_csv)
+
+Features:
+
+- Read CSV files (optionally gzip compressed)
+- Parse CSV fields into various data types 
+- Write CSV files 
+
+### Exa Dot
+
+Module path: `Exa.Dot`
+
+Repo link: [exa_dot](https://github.com/red-jade/exa_dot)
+
+Features:
+
+- Read DOT files and return a graph data structure.
+- Write DOT files 
+- Render DOT files, if GraphViz DOT is installed
+
+### Exa Gis
+
+Module path: `Exa.Gis`
+
+Repo link: [exa_gis](https://github.com/red-jade/exa_gis)
+
+Features:
+
+- Simple formats for locations and bearings.
+- Parsers and formatters for location fields.
+  Parsers can be included in CSV Reader.
+- GeoJSON reader, using the basic JSON reader,
+  with a custom GeoJSON object factory.
+- Fast Equirectangular (tangent plane Pythagoras) implementation of local distances.
+- Basic Haversine (spherical geometry) for distances and geodesics.
+- At least one projection: _Equirectangular Projection_
 
 ### E3D License
 
