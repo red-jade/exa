@@ -19,7 +19,7 @@ The main targets of development are:
 - graphics (2D, image, text, 3D)
 - GIS geometry and file formats (CSV, GeoJSON).
 - some web stuff (XML, HTML, CSS, SVG)
-- graph formats (GraphViz DOT)
+- graph formats (GraphViz DOT, Erlang digraph, AGR)
 - other data formats (CSV, JSON, XML)
 
 This EXA repo is just the index for all the individual libraries.
@@ -44,7 +44,7 @@ The general approach for EXA is:
   - no macro meta-programming (maybe some in the future)
   - old-style typespecs, for documentation, as much as for dialyzer
   - separate modules for types and constants
-  - use standard tools, e.g. `Logger`, `ExUnit`, `ExDoc`
+  - use standard tools, e.g. Logger, ExUnit, ExDoc
   - only use tools that work in git bash shell
 - packaging:
   - all libraries all the way
@@ -75,8 +75,9 @@ Contents:
 - [Exa Image](#exa-image)
 - [Exa Json](#exa-json)
 - [Exa Csv](#exa-csv)
-- [Exa Dot](#exa-dot)
 - [Exa Gis](#exa-gis)
+- [Exa Dot](#exa-dot)
+- [Exa Dig](#exa-dig)
 
 ### Exa Core 
 
@@ -215,18 +216,6 @@ Features:
 - Parse CSV fields into various data types 
 - Write CSV files 
 
-### Exa Dot
-
-Module path: `Exa.Dot`
-
-Repo link: [exa_dot](https://github.com/red-jade/exa_dot)
-
-Features:
-
-- Read DOT files and return a graph data structure.
-- Write DOT files 
-- Render DOT files, if GraphViz DOT is installed
-
 ### Exa Gis
 
 Module path: `Exa.Gis`
@@ -243,6 +232,36 @@ Features:
 - Fast Equirectangular (tangent plane Pythagoras) implementation of local distances.
 - Basic Haversine (spherical geometry) for distances and geodesics.
 - At least one projection: _Equirectangular Projection_
+
+### Exa Dot
+
+Module path: `Exa.Dot`
+
+Repo link: [exa_dot](https://github.com/red-jade/exa_dot)
+
+Features:
+
+- Read DOT files and return a graph data structure.
+- Write DOT files 
+- Render DOT files, if GraphViz DOT is installed
+
+### Exa Dig
+
+
+Module path: `Exa.Dig`
+
+Repo link: [exa_gis](https://github.com/red-jade/exa_dig)
+
+Features:
+- Wrapper around Erlang `digraph` module.
+- Graphs allow cyclic graphs and self-loops, but not multi-edges 
+  (multiple edges between the same pair of vertices).
+- Functions to fetch vertex degrees and neighborhoods.
+- Build 1D and 2D histograms from vertex degrees,
+  and hence generate a hash for a graph.
+- Use the hash for simple isomorphism test.
+
+- Conversion to and from GraphViz DOT file format.
 
 ### E3D License
 
