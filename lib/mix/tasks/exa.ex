@@ -50,7 +50,7 @@ defmodule Mix.Tasks.Exa do
 
   @exa_tags %{
     :exa_core => "v0.1.8",
-    :exa_space => "v0.1.7",
+    :exa_space => "v0.1.8",
     :exa_color => "v0.1.7",
     :exa_std => "v0.1.7",
     :exa_csv => "v0.1.7",
