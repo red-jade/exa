@@ -303,15 +303,8 @@ to PNG, SVG images and other formats
 
 ## EXA Build
 
-**To bootstrap an `exa_xxx` library build, run:** `mix deps.get exa`
-
-Otherwise you will see this error:
-
-```
-Unchecked dependencies for environment test:
-* exa (https://github.com/red-jade/exa.git - origin/main)
-  the dependency is not available, run "mix deps.get"
-```
+To bootstrap an `exa_xxx` library build, 
+you must run `mix deps.get` twice.
 
 The `exa` repo contains a mix task: `Mix.Tasks.Exa`.
 The task enables configurable builds for all EXA libraries,
