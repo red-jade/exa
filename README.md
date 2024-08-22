@@ -303,6 +303,16 @@ to PNG, SVG images and other formats
 
 ## EXA Build
 
+**To bootstrap an `exa_xxx` library build, run:** `mix deps.get exa`
+
+Otherwise you will see this error:
+
+```
+Unchecked dependencies for environment test:
+* exa (https://github.com/red-jade/exa.git - origin/main)
+  the dependency is not available, run "mix deps.get"
+```
+
 The `exa` repo contains a mix task: `Mix.Tasks.Exa`.
 The task enables configurable builds for all EXA libraries,
 by centralizing the generation of dependencies.
@@ -310,7 +320,8 @@ by centralizing the generation of dependencies.
 All individual `exa_xxx` repos contain boilerplate in their `mix.exs`,
 which processes command line arguments and calls into the `mix exa` task
 to generate library dependencies. 
-The boilerplate code is in the `mix_util.ex.txt` file.
+The boilerplate code is also recorded here
+in the `mix_util.exs.txt` file.
 
 There are three ways to build exa libraries:
  - `local` builds using the current local versions 
