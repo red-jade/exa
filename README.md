@@ -103,6 +103,8 @@ Features:
 
 - `Factory`: for structs built by data parsers.
 
+- `Dispatch`: a _protocol_ pattern for tagged tuples.
+
 - `Stopwatch`: for simple timing and benchmarking tasks.
 
 - Trivial functions for `Http`, `Logger`.
@@ -132,6 +134,7 @@ Features:
 - Character Stream: incremental char from a binary String with line/column address
 - Tidal: managing out-of-order streaming sequence (integer IDs)
 - Map of Lists (MoL)
+- Map od sets (MoS)
 - Yet Another Zip List (yazl): list with local cursor
 
 ### Exa Space 
@@ -159,7 +162,7 @@ Features:
 
 - Colors: 1,3,4 byte,float
 - Color models: RGB, HSL
-- Color maps: index => col3b
+- Color maps: _index => col3b_
 - Named CSS colors
 - Pixels and components
 - Conversion utilities: byte,float
@@ -173,7 +176,7 @@ Repo link: [exa_image](https://github.com/red-jade/exa_image)
 Bitmap:
 
 - bitmap: create, access, update, output to ascii art and image
-- bitmap/image: bitmap to alpha, bitmap matte composition
+- bitmap/image: bitmap to alpha; bitmap matte composition
 
 Image:
 
@@ -194,6 +197,7 @@ Image I/O
 Video (only if [ffmpeg](https://ffmpeg.org/download.html) is installed):
 - create video from image files
 - probe video for information
+- play video in a standalone window
 
 ### Exa Json
 
@@ -206,7 +210,7 @@ Features:
 - Read JSON files (optionally gzip compressed) and decode JSON data
 - Write JSON files and encode JSON data
 - Configure object conversion 
-- (future GIS extensions)
+- (see GIS library for GeoJSON parser and data types)
 
 ### Exa Csv
 
@@ -219,6 +223,7 @@ Features:
 - Read CSV files (optionally gzip compressed)
 - Parse CSV fields into various data types 
 - Write CSV files 
+- (see GIS library for lat/lon cell parser)
 
 ### Exa Gis
 
@@ -233,8 +238,8 @@ Features:
   Parsers can be included in CSV Reader.
 - GeoJSON reader, using the basic JSON reader,
   with a custom GeoJSON object factory.
-- Fast Equirectangular (tangent plane Pythagoras) implementation of local distances.
-- Basic Haversine (spherical geometry) for distances and geodesics.
+- Fast _Equirectangular_ (tangent plane Pythagoras) implementation of local distances.
+- Basic _Haversine_ (spherical geometry) for distances and geodesics.
 - At least one projection: _Equirectangular Projection_
 
 ### Exa Graf
@@ -292,7 +297,7 @@ Serialization to/from GraphViz DOT format.
 
 Rendering of GraphViz DOT files 
 to PNG, SVG images and other formats
-(if you have GraphViz DOT installed).
+(if you have [GraphViz DOT](https://graphviz.org/docs/layouts/dot/) installed).
 
 ## EXA Build
 
@@ -302,7 +307,8 @@ by centralizing the generation of dependencies.
 
 All individual `exa_xxx` repos contain boilerplate in their `mix.exs`,
 which processes command line arguments and calls into the `mix exa` task
-to generate library dependencies.
+to generate library dependencies. 
+The boilerplate code is in the `mix_util.ex.txt` file.
 
 There are three ways to build exa libraries:
  - `local` builds using the current local versions 
@@ -318,7 +324,7 @@ The build scope is determined in this order:
 - fallback default to `tag`
 
 Each `mix.exs` file calls the `mix exa` task with 
-the build scope a list of library names (atoms), 
+the build scope, and a list of library names (atoms), 
 containing a subset of exa libraries and 
 some of the default support libraries.
 
@@ -336,9 +342,9 @@ https://github.com/dgud/wings
 
 See the file `exa_image/src/e3d/license.terms` for licensing.
 
-See source file headers for author credit and copyright:
+See source file headers for author credit and copyright.
 
-All files are: <br>
+All E3D files are: <br>
 Copyright (c) Dan Gudmundsson
 
 ## EXA License
