@@ -49,15 +49,15 @@ defmodule Mix.Tasks.Exa do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.1.9",
-    :exa_space => "v0.1.9",
-    :exa_color => "v0.1.7",
-    :exa_std => "v0.1.7",
-    :exa_csv => "v0.1.7",
-    :exa_json => "v0.1.7",
-    :exa_gis => "v0.1.7",
-    :exa_graf => "v0.1.7",
-    :exa_image => "v0.1.7"
+    :exa_core => "v0.2.0",
+    :exa_space => "v0.2.0",
+    :exa_color => "v0.2.0",
+    :exa_std => "v0.2.0",
+    :exa_csv => "v0.2.0",
+    :exa_json => "v0.2.0",
+    :exa_gis => "v0.2.0",
+    :exa_graf => "v0.2.0",
+    :exa_image => "v0.2.0"
   }
 
   # default set of support libraries
@@ -73,7 +73,7 @@ defmodule Mix.Tasks.Exa do
     {:benchee, "~> 1.0", only: [:dev, :test]}
   ]
 
-  @sup_libs Enum.map(@sup_deps, & elem(&1,0))
+  @sup_libs Enum.map(@sup_deps, &elem(&1, 0))
 
   # ----
   # task
@@ -85,10 +85,10 @@ defmodule Mix.Tasks.Exa do
     IO.puts("EXA build '#{scope}'")
     IO.puts("EXA libraries: #{inspect(libs)}")
     IO.puts("EXA support:   #{inspect(sups)}")
-    exa_deps = Enum.map(libs, &lib2dep(scope, &1)) 
+    exa_deps = Enum.map(libs, &lib2dep(scope, &1))
     sup_deps = Enum.filter(@sup_deps, fn dep -> elem(dep, 0) in sups end)
     deps = exa_deps ++ sup_deps
-    text = inspect(deps, charlists: :as_lists, limit: :infinity, pretty: true) 
+    text = inspect(deps, charlists: :as_lists, limit: :infinity, pretty: true)
     scope |> deps_file() |> File.write!(text)
     text
   end
@@ -110,8 +110,7 @@ defmodule Mix.Tasks.Exa do
 
   defp arg_task([]) do
     scopes = Enum.join(@scopes, "|")
-    raise ArgumentError, message: 
-    "Error: no arguments, expecting: #{scopes} all|libs..."
+    raise ArgumentError, message: "Error: no arguments, expecting: #{scopes} all|libs..."
   end
 
   # parse lib arguments to atoms
@@ -129,13 +128,13 @@ defmodule Mix.Tasks.Exa do
   defp arg_sups(["all"]), do: @sup_libs
 
   defp arg_sups(args) do
-    args |> Enum.map(&String.to_atom/1) |> Enum.filter(& &1 in @sup_libs)
+    args |> Enum.map(&String.to_atom/1) |> Enum.filter(&(&1 in @sup_libs))
   end
 
   # convert a library atom key to a mix dependency
   @spec lib2dep(scope(), lib()) :: dep()
   defp lib2dep(:local, lib), do: {lib, [path: path(lib), app: false]}
-  defp lib2dep(:main, lib), do: {lib, [branch: "main", app: false]}
+  defp lib2dep(:main, lib), do: {lib, ">= 0.0.0", [branch: "main", app: false]}
   defp lib2dep(:tag, lib), do: {lib, [git: repo(lib), tag: tag(lib), app: false]}
 
   # local path checked-out in sibling directory
@@ -151,5 +150,5 @@ defmodule Mix.Tasks.Exa do
   defp tag(lib), do: Map.fetch!(@exa_tags, lib)
 
   # the deps literal file written by this mix task
-  defp deps_file(scope), do: Path.join([".", "deps","deps_#{scope}.ex"])
+  defp deps_file(scope), do: Path.join([".", "deps", "deps_#{scope}.ex"])
 end
