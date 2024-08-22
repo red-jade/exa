@@ -11,7 +11,8 @@ The main targets of development are:
 - standard library for new data structures (Std)
 - parsing/serialization I/O for various formats
 - simple domain models for existing standards
-- spatial types (2D, 3D), some 2D computational geometry
+- spatial types (2D, 3D)
+- some 2D computational geometry
 - colors (byte, hex, float, names) and color model conversion
 - bitmaps and images (I, IA, RGB, RGBA) and image I/O
 - image processing (r/w, subimage, reflect, rotate, resize, filter, etc.)
@@ -19,10 +20,14 @@ The main targets of development are:
 - graphics (2D, image, text, 3D)
 - GIS geometry and file formats (CSV, GeoJSON).
 - some web stuff (XML, HTML, CSS, SVG)
-- graph formats (GraphViz DOT, Erlang digraph, AGR)
+- graph formats (GraphViz DOT, Erlang digraph, agra)
+- some simple graph algorithms
 - other data formats (CSV, JSON, XML)
 
 This EXA repo is just the index for all the individual libraries.
+
+It also contains a _mix_ task to generate 
+consistent dependencies for all EXA libraries.
 
 ## Principles
 
@@ -76,8 +81,7 @@ Contents:
 - [Exa Json](#exa-json)
 - [Exa Csv](#exa-csv)
 - [Exa Gis](#exa-gis)
-- [Exa Dot](#exa-dot)
-- [Exa Dig](#exa-dig)
+- [Exa Graf](#exa-graf)
 
 ### Exa Core 
 
@@ -233,37 +237,97 @@ Features:
 - Basic Haversine (spherical geometry) for distances and geodesics.
 - At least one projection: _Equirectangular Projection_
 
-### Exa Dot
+### Exa Graf
 
-Module path: `Exa.Dot`
+Module path: `Exa.Graf`
 
-Repo link: [exa_dot](https://github.com/red-jade/exa_dot)
-
-Features:
-
-- Read DOT files and return a graph data structure.
-- Write DOT files 
-- Render DOT files, if GraphViz DOT is installed
-
-### Exa Dig
-
-
-Module path: `Exa.Dig`
-
-Repo link: [exa_gis](https://github.com/red-jade/exa_dig)
+Repo link: [exa_graf](https://github.com/red-jade/exa_graf)
 
 Features:
-- Wrapper around Erlang `digraph` module.
-- Graphs allow cyclic graphs and self-loops, but not multi-edges 
-  (multiple edges between the same pair of vertices).
-- Functions to fetch vertex degrees and neighborhoods.
-- Build 1D and 2D histograms from vertex degrees,
-  and hence generate a hash for a graph.
-- Use the hash for simple isomorphism test.
 
-- Conversion to and from GraphViz DOT file format.
+The _agra_ (A GRAph Research Adventure) 
+functional data structure for directed graphs,
+based on in-memory in-process adjacency lists.
 
-### E3D License
+A wrapper around the Erlang `digraph` module,
+with data stored in ETS (in-memory database process).
+
+An abstraction for both graphs types,
+using a _behaviour_ API and a generic `Exa.Graf.Graf` interface.
+`Graf` uses the core `Exa.Dispatch` to send calls
+to the specific implementation.
+
+Conversion between different representations.
+
+A generic and flexible way to build graphs from
+vertices, vertex ranges, edges and adjacency lists.
+
+Graf data allows self-loops and cyclic graphs, but no multi-edges 
+(multiple edges between the same pair of vertices).
+
+Simple queries on the graph, such as 
+lists of elements, presence of specific vert/edge
+and vertex classification.
+
+Functions to find:
+- vertex degrees
+- neighborhoods
+- degree histograms
+- connectedness and (weakly) connected components
+- reachability sets
+
+Build 1D and 2D histograms from vertex degrees.
+Use the 2D in-out adjacency histogram
+to create a topology hash for the graph,
+and use the hash for a simple isomorphism test.
+
+Relabelling of graphs to permute vertex identifiers.
+Combining graphs using _merge_ of vertices and edges,
+or _disjoint_ independent composition.
+
+Serialization of _agra_ data to/from files 
+using Elixir term format.
+
+Serialization to/from GraphViz DOT format.
+
+Rendering of GraphViz DOT files 
+to PNG, SVG images and other formats
+(if you have GraphViz DOT installed).
+
+## EXA Build
+
+The `exa` repo contains a mix task: `Mix.Tasks.Exa`.
+The task enables configurable builds for all EXA libraries,
+by centralizing the generation of dependencies.
+
+All individual `exa_xxx` repos contain boilerplate in their `mix.exs`,
+which processes command line arguments and calls into the `mix exa` task
+to generate library dependencies.
+
+There are three ways to build exa libraries:
+ - `local` builds using the current local versions 
+    checked-out in sibling directories `../exa_xxx`
+ - `main` builds from github main branches
+ - `tag`  builds from github tagged releases
+ 
+The build scope is determined in this order:
+- `--build scope` argument to the mix task
+  e.g. `mix compile --build local`
+- `MIX_BUILD` shell environment variable
+  e.g. `$ export MIX_BUILD=local`
+- fallback default to `tag`
+
+Each `mix.exs` file calls the `mix exa` task with 
+the build scope a list of library names (atoms), 
+containing a subset of exa libraries and 
+some of the default support libraries.
+
+The current set of default support libraries is:
+- `dialyxir` typechecking
+- `ex_doc` documentation
+- `benchee` benchmarking
+
+## E3D License
 
 The `Exa.Image` repo contains the image subset of E3D
 copied (forked) from Wings3D on 23 November 2023 (v2.3):
