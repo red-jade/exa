@@ -83,6 +83,8 @@ Contents:
 - [Exa Gis](#exa-gis)
 - [Exa Graf](#exa-graf)
 
+![EXA dependencies](./assets/exa-deps.png)
+
 ### Exa Core 
 
 Module path: `Exa`
@@ -332,6 +334,10 @@ The current set of default support libraries is:
 - `dialyxir` typechecking
 - `ex_doc` documentation
 - `benchee` benchmarking
+
+## Acknowledgements
+
+Any hand-drawn diagrams are created with [Excalidraw](https://excalidraw.com/)
 
 ## E3D License
 
