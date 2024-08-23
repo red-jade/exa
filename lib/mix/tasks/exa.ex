@@ -134,8 +134,8 @@ defmodule Mix.Tasks.Exa do
   # convert a library atom key to a mix dependency
   @spec lib2dep(scope(), lib()) :: dep()
   defp lib2dep(:local, lib), do: {lib, [path: path(lib), app: false]}
-  defp lib2dep(:main, lib), do: {lib, ">= 0.0.0", [git: repo(lib), branch: "main", app: false]}
-  defp lib2dep(:tag, lib), do: {lib, [git: repo(lib), tag: tag(lib), app: false]}
+  defp lib2dep(:tag, lib),   do: {lib, [git: repo(lib), tag: tag(lib), app: false]}
+  defp lib2dep(:main, lib),  do: {lib, [git: repo(lib), branch: "main", app: false]}
 
   # local path checked-out in sibling directory
   @spec path(lib()) :: String.t()
