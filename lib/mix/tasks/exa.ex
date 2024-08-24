@@ -110,7 +110,7 @@ defmodule Mix.Tasks.Exa do
 
   defp arg_task([]) do
     scopes = Enum.join(@scopes, "|")
-    raise ArgumentError, message: "Error: no arguments, expecting: #{scopes} all|libs..."
+    raise ArgumentError, message: "No arguments, expecting: #{scopes} libs..."
   end
 
   # parse lib arguments to atoms
