@@ -8,9 +8,9 @@ defmodule Exa.MixUtil do
   # main entry point for dependencies
   def exa_deps(name, libs) do
     case System.argv() do
-      ["exa" | _] -> [exa_project()]
-      ["format" | _] -> [exa_project()]
-      ["deps.get", "exa" | _] -> [exa_project()]
+      ["exa" | _] -> []
+      ["format" | _] -> []
+      ["deps.get", "exa" | _] -> []
       ["deps.clean" | _] -> do_clean()
       [cmd | _] -> do_deps(cmd, name, libs)
     end 
@@ -18,7 +18,7 @@ defmodule Exa.MixUtil do
 
   defp do_clean() do
     Enum.each([:local, :main, :tag], fn s -> s |> deps_file() |> File.rm() end)
-    [exa_project()]
+    []
   end
 
   defp do_deps(cmd, name, libs) do
@@ -28,26 +28,21 @@ defmodule Exa.MixUtil do
     if not File.exists?(deps_path) do
       # invoke the exa project mix task to generate dependencies
       exa_args = Enum.map([:exa, scope | libs], &to_string/1)
-
-      case System.cmd("mix", exa_args) do
-        {_msg, 0} -> :ok
-        {_, _} -> IO.puts("Failed 'mix exa' dependency task")
-      end
+      System.cmd("mix", exa_args)
     end
 
-    deps =
-      if File.exists?(deps_path) do
-        deps_path |> Code.eval_file() |> elem(0)
+    if not File.exists?(deps_path) do
+      IO.puts("No exa dependency file: #{deps_path}")
+      []
+    else
+      deps = deps_path |> Code.eval_file() |> elem(0)
+      
+      if String.starts_with?(cmd, ["deps", "compile"]) do
+        IO.inspect(deps, label: "#{name} #{scope}")
       else
-        IO.puts("No exa dependency file: #{deps_path}")
-        []
+        deps
       end
-
-    if deps != [] and String.starts_with?(cmd, ["deps", "compile"]) do
-      IO.inspect(deps, label: "#{name} #{scope}")
     end
-
-    [exa_project() | deps]
   end
 
   # the deps literal file to be written for each scope
@@ -70,17 +65,5 @@ defmodule Exa.MixUtil do
     |> elem(0)
     |> Keyword.get(:build, default)
     |> String.to_atom()
-  end
-
-  # the main exa umbrella library project
-  # provides the 'mix exa' task to generate dependencies
-  defp exa_project() do
-    {
-      :exa,
-      git: "https://github.com/red-jade/exa.git",
-      branch: "main",
-      only: [:dev, :test],
-      runtime: false
-    }
   end
 end
