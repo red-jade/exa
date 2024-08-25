@@ -303,24 +303,20 @@ to PNG, SVG images and other formats
 
 ## EXA Build
 
-To bootstrap an `exa_xxx` library build, 
-you must run `mix deps.get` twice.
+**To bootstrap an `exa_xxx` library build, you must run `mix deps.get` twice.**
 
-The `exa` repo contains a mix task: `Mix.Tasks.Exa`.
-The task enables configurable builds for all EXA libraries,
-by centralizing the generation of dependencies.
+The `exa` repo contains a shared mix utility module
+to read command arguments and environment variables
+then generate library dependencies. 
 
-All individual `exa_xxx` repos contain boilerplate in their `mix.exs`,
-which processes command line arguments and calls into the `mix exa` task
-to generate library dependencies. 
-The boilerplate code is also recorded here
-in the `mix_util.exs.txt` file.
+All individual `exa_xxx` repos contain boilerplate in the `mix.exs`
+to bootstrap from this `exa` project.
 
 There are three ways to build exa libraries:
  - `local` builds using the current local versions 
-    checked-out in sibling directories `../exa_xxx`
+    checked-out in sibling directories with path `../exa_xxx`
  - `main` builds from github main branches
- - `tag`  builds from github tagged releases
+ - `tag`  builds from github tagged releases 
  
 The build scope is determined in this order:
 - `--build scope` argument to the mix task
@@ -328,11 +324,6 @@ The build scope is determined in this order:
 - `MIX_BUILD` shell environment variable
   e.g. `$ export MIX_BUILD=local`
 - fallback default to `tag`
-
-Each `mix.exs` file calls the `mix exa` task with 
-the build scope, and a list of library names (atoms), 
-containing a subset of exa libraries and 
-some of the default support libraries.
 
 The current set of default support libraries is:
 - `dialyxir` typechecking
