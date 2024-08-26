@@ -20,15 +20,15 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.2.0",
-    :exa_space => "v0.2.0",
-    :exa_color => "v0.2.0",
-    :exa_std => "v0.2.0",
-    :exa_csv => "v0.2.0",
-    :exa_json => "v0.2.0",
-    :exa_gis => "v0.2.0",
-    :exa_graf => "v0.2.0",
-    :exa_image => "v0.2.0"
+    :exa_core => "v0.2.1",
+    :exa_space => "v0.2.1",
+    :exa_color => "v0.2.1",
+    :exa_std => "v0.2.1",
+    :exa_csv => "v0.2.1",
+    :exa_json => "v0.2.1",
+    :exa_gis => "v0.2.1",
+    :exa_graf => "v0.2.1",
+    :exa_image => "v0.2.1"
   }
 
   # default set of support libraries
@@ -97,7 +97,7 @@ defmodule Exa.MixUtil do
     exas = Enum.filter(libs, &is_map_key(@exa_tags, &1))
     sups = Enum.filter(libs, &(&1 in @sup_libs))
     IO.puts("EXA build '#{scope}'")
-    IO.puts("EXA libraries: #{inspect(libs)}")
+    IO.puts("EXA libraries: #{inspect(exas)}")
     IO.puts("EXA support:   #{inspect(sups)}")
     exa_deps = Enum.map(exas, &lib2dep(scope, &1))
     sup_deps = Enum.filter(@sup_deps, fn dep -> elem(dep, 0) in sups end)
