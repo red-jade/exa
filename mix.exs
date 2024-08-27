@@ -5,8 +5,8 @@ defmodule ExaProject do
     [
       app: :exa,
       name: "Exa Project",
-      version: "0.1.7",
-      elixir: "~> 1.15",
+      version: "0.2.2",
+      elixir: "~> 1.17",
       erlc_options: [:verbose, :report_errors, :report_warnings, :export_all],
       start_permanent: Mix.env() == :prod,
       deps: [],
