@@ -136,7 +136,7 @@ Features:
 - Character Stream: incremental char from a binary String with line/column address
 - Tidal: managing out-of-order streaming sequence (integer IDs)
 - Map of Lists (MoL)
-- Map od sets (MoS)
+- Map of sets (MoS)
 - Yet Another Zip List (yazl): list with local cursor
 
 ### Exa Space 
@@ -303,11 +303,18 @@ to PNG, SVG images and other formats
 
 ## EXA Build
 
-**To bootstrap an `exa_xxx` library build, you must run `mix deps.get` twice.**
+**To bootstrap an `exa_xxx` library build,**<br>
+**you must update dependencies twice.**
+
+One way to start a build is:
+```
+  $ mix deps.update exa
+  $ mix deps.get
+```
 
 The `exa` repo contains a shared mix utility module
-to read command arguments and environment variables
-then generate library dependencies. 
+to read command arguments and environment variables,
+then generate EXA library dependencies. 
 
 All individual `exa_xxx` repos contain boilerplate in the `mix.exs`
 to bootstrap from this `exa` project.

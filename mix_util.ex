@@ -56,6 +56,7 @@ defmodule Exa.MixUtil do
       ["exa" | _] -> []
       ["format" | _] -> []
       ["deps.get", "exa" | _] -> []
+      ["deps.tree" | _] -> []
       ["deps.clean" | _] -> do_clean()
       [cmd | _] -> do_deps(cmd, name, libs)
     end 
