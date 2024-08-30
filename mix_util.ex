@@ -56,7 +56,6 @@ defmodule Exa.MixUtil do
       ["exa" | _] -> []
       ["format" | _] -> []
       ["deps.get", "exa" | _] -> []
-      ["deps.tree" | _] -> []
       ["deps.clean" | _] -> do_clean()
       [cmd | _] -> do_deps(cmd, name, libs)
     end 
@@ -85,7 +84,7 @@ defmodule Exa.MixUtil do
     else
       deps = deps_path |> Code.eval_file() |> elem(0)
 
-      if String.starts_with?(cmd, ["deps", "compile"]) do
+      if String.starts_with?(cmd, ["deps", "compile"]) and cmd != "deps.tree" do
         IO.inspect(deps, label: "#{name} #{scope}")
       else
         deps
