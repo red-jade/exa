@@ -20,15 +20,15 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.2.2",
+    :exa_core => "v0.2.3",
     :exa_space => "v0.2.2",
-    :exa_color => "v0.2.2",
-    :exa_std => "v0.2.2",
+    :exa_color => "v0.2.3",
+    :exa_std => "v0.2.3",
     :exa_csv => "v0.2.2",
     :exa_json => "v0.2.2",
     :exa_gis => "v0.2.2",
     :exa_graf => "v0.2.2",
-    :exa_image => "v0.2.2"
+    :exa_image => "v0.2.3"
   }
 
   # default set of support libraries
@@ -51,6 +51,7 @@ defmodule Exa.MixUtil do
   # ----------------
 
   # main entry point for dependencies
+  @spec exa_deps(lib(), [lib()]) :: [dep()]
   def exa_deps(name, libs) do
     case System.argv() do
       ["exa" | _] -> []
@@ -65,11 +66,13 @@ defmodule Exa.MixUtil do
   # private functions
   # -----------------
 
+  @spec do_clean() :: []
   defp do_clean() do
     Enum.each([:local, :main, :tag], fn s -> s |> deps_file() |> File.rm() end)
     []
   end
 
+  @spec do_deps(String.t(), lib(), [lib()]) :: [dep()]
   defp do_deps(cmd, name, libs) do
     scope = arg_build()
     deps_path = deps_file(scope)
@@ -93,6 +96,7 @@ defmodule Exa.MixUtil do
   end
 
   # write the 'scope'_deps.ex file for dependencies
+  @spec write_deps_file(scope(), [lib()], String.t()) :: :ok
   defp write_deps_file(scope, libs, deps_path) do
     exas = Enum.filter(libs, &is_map_key(@exa_tags, &1))
     sups = Enum.filter(libs, &(&1 in @sup_libs))
@@ -125,12 +129,14 @@ defmodule Exa.MixUtil do
   defp tag(lib), do: Map.fetch!(@exa_tags, lib)
 
   # the deps literal file written by this mix task
+  @spec deps_file(scope()) :: String.t()
   defp deps_file(scope), do: Path.join([".", "deps", "deps_#{scope}.ex"])
 
   # parse the build scope from:
   # - mix command line --build option
   # - MIX_BUILD system environment variable
   # - default to "tag"
+  @spec arg_build() :: scope()
   defp arg_build() do
     default =
       case System.fetch_env("MIX_BUILD") do
