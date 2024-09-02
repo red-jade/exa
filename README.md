@@ -20,7 +20,7 @@ The main targets of development are:
 - graphics (2D, image, text, 3D)
 - GIS geometry and file formats (CSV, GeoJSON).
 - some web stuff (XML, HTML, CSS, SVG)
-- graph formats (GraphViz DOT, Erlang digraph, agra)
+- graph formats (GraphViz DOT, Erlang digraph, adjacency)
 - some simple graph algorithms
 - other data formats (CSV, JSON, XML)
 
@@ -252,8 +252,7 @@ Repo link: [exa_graf](https://github.com/red-jade/exa_graf)
 
 Features:
 
-The _agra_ (A GRAph Research Adventure) 
-functional data structure for directed graphs,
+The _adj_ functional data structure for directed graphs,
 based on in-memory in-process adjacency lists.
 
 A wrapper around the Erlang `digraph` module,
@@ -292,7 +291,7 @@ Relabelling of graphs to permute vertex identifiers.
 Combining graphs using _merge_ of vertices and edges,
 or _disjoint_ independent composition.
 
-Serialization of _agra_ data to/from files 
+Serialization of _adj_ data to/from files 
 using Elixir term format.
 
 Serialization to/from GraphViz DOT format.

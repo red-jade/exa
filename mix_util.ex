@@ -27,7 +27,7 @@ defmodule Exa.MixUtil do
     :exa_csv => "v0.2.3",
     :exa_json => "v0.2.3",
     :exa_gis => "v0.2.3",
-    :exa_graf => "v0.2.3",
+    :exa_graf => "v0.2.4",
     :exa_image => "v0.2.3"
   }
 
