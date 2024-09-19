@@ -266,7 +266,7 @@ to the specific implementation.
 Conversion between different representations.
 
 A generic and flexible way to build graphs from
-vertices, vertex ranges, edges and adjacency lists.
+vertices, vertex ranges, edges, chains and adjacency lists.
 
 Graf data allows self-loops and cyclic graphs, but no multi-edges 
 (multiple edges between the same pair of vertices).
@@ -278,14 +278,25 @@ and vertex classification.
 Functions to find:
 - vertex degrees
 - neighborhoods
-- degree histograms
-- connectedness and (weakly) connected components
 - reachability sets
+- frontier sets
+- degree histograms (1D, 2D, 3D)
+- connected components (weak & strong)
+- condensed components
 
-Build 1D and 2D histograms from vertex degrees.
-Use the 2D in-out adjacency histogram
+Utilities based on depth-first search (DFS):
+- spanning forest
+- forest traversal
+- preorder/postorder
+
+Build 1D, 2D and 3D histograms from vertex degrees.
+Use the 3D in-self-out adjacency histogram
 to create a topology hash for the graph,
 and use the hash for a simple isomorphism test.
+
+Contract edges and linear nodes.
+Test topological equivalence (homeomorphism) 
+by comparing full contractions of all linear edges.
 
 Relabelling of graphs to permute vertex identifiers.
 Combining graphs using _merge_ of vertices and edges,
