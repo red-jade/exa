@@ -20,15 +20,15 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.2.3",
-    :exa_space => "v0.2.3",
-    :exa_color => "v0.2.3",
-    :exa_std => "v0.2.5",
-    :exa_csv => "v0.2.3",
-    :exa_json => "v0.2.3",
-    :exa_gis => "v0.2.3",
+    :exa_core => "v0.2.4",
+    :exa_space => "v0.2.4",
+    :exa_color => "v0.2.4",
+    :exa_std => "v0.2.6",
+    :exa_csv => "v0.2.4",
+    :exa_json => "v0.2.4",
+    :exa_gis => "v0.2.4",
     :exa_graf => "v0.2.6",
-    :exa_image => "v0.2.4"
+    :exa_image => "v0.2.5"
   }
 
   # default set of support libraries
