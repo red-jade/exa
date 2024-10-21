@@ -94,12 +94,14 @@ Repo link: [exa_core](https://github.com/red-jade/exa_core)
 Features: 
 
 - Utilities relating to specific language modules or features:<br>
-  `Binary`, `File`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,<br>
+  `Binary`, `File`, `Fun`, `List`, `Map`, `Tuple`, `Set` (MapSet), `String`,<br>
   `Text` (chardata), `Message`, `Option`, `Process`, `Random`, `System`.
   
 - `Indent`: an indentable text output formatter.
   
 - `Math`: floating-point arithmetic and wrappers for Erlang `:math`.
+
+- `Combine`: permutations and combinations.
 
 - `Parse`: basic combinators for simple types.
 
@@ -128,6 +130,7 @@ Repo link: [exa_std](https://github.com/red-jade/exa_std)
 Features:
 
 - Histograms for positive integer labels (IDs)
+  - 0D general histogram for any key
   - 1D using the Erlang `:array` module
   - 2D, 3D sparse histograms using Elixir `Map` module
 - Run Length Encoding (RLE):
@@ -266,14 +269,14 @@ to the specific implementation.
 Conversion between different representations.
 
 A generic and flexible way to build graphs from
-vertices, vertex ranges, edges, chains and adjacency lists.
+vertices, vertex ranges, edges, edge chains and adjacency lists.
 
 Graf data allows self-loops and cyclic graphs, but no multi-edges 
 (multiple edges between the same pair of vertices).
 
 Simple queries on the graph, such as 
 lists of elements, presence of specific vert/edge
-and vertex classification.
+and vertex classification (source, sink, etc.)
 
 Functions to find:
 - vertex degrees
@@ -294,13 +297,20 @@ and breadth-first search (BFS):
 - cyclic test
 
 Build 1D, 2D and 3D histograms from vertex degrees.
-Use the 3D in-self-out adjacency histogram
-to create a topology hash for the graph,
-and use the hash for a simple isomorphism test.
+
+Generate topological hashes for a graph using
+in/out degree histograms:
+- 0-hop: for each vertex
+- 1-hop: for each vertex and its in/out neighbors
+
+Find isomorphism between two graphs by using hashes for quick rejection tests,
+then permuting vertices in hash equivalence classes 
+to find a vertex relabelling that makes the graphs equal.
 
 Contract edges and linear nodes.
 Test topological equivalence (homeomorphism) 
-by comparing full contractions of all linear edges.
+by contracting all linear edges
+then comparing for isomorphism.
 
 Relabelling of graphs to permute vertex identifiers.
 Combining graphs using _merge_ of vertices and edges,
