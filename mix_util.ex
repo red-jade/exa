@@ -27,15 +27,15 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.3.0",
-    :exa_space => "v0.3.0",
-    :exa_color => "v0.3.0",
-    :exa_std => "v0.3.0",
-    :exa_csv => "v0.3.0",
-    :exa_json => "v0.3.0",
-    :exa_gis => "v0.3.0",
-    :exa_graf => "v0.3.0",
-    :exa_image => "v0.3.0"
+    :exa_core => "v0.3.1",
+    :exa_space => "v0.3.1",
+    :exa_color => "v0.3.1",
+    :exa_std => "v0.3.1",
+    :exa_csv => "v0.3.1",
+    :exa_json => "v0.3.1",
+    :exa_gis => "v0.3.1",
+    :exa_graf => "v0.3.1",
+    :exa_image => "v0.3.1"
   }
 
   # default set of support libraries
@@ -157,12 +157,12 @@ defmodule Exa.MixUtil do
 
   # parse the build scope from:
   # - mix command line --build option
-  # - MIX_BUILD system environment variable
+  # - EXA_BUILD system environment variable
   # - default to "rel"
   @spec arg_build() :: scope()
   defp arg_build() do
     default =
-      case System.fetch_env("MIX_BUILD") do
+      case System.fetch_env("EXA_BUILD") do
         :error -> "rel"
         {:ok, mix_build} -> mix_build
       end
