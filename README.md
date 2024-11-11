@@ -99,6 +99,8 @@ Features:
     
 - `Math`: floating-point arithmetic and wrappers for Erlang `:math`.
 
+- `Random`: uniform and normal distributions, wrappers for Erlang `:rand`.
+
 - `Combine`: permutations and combinations.
 
 - `Stats`: simple statistics.
