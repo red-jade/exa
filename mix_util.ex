@@ -13,8 +13,8 @@ defmodule Exa.MixUtil do
   # - local: sibling repo directories in the local filesystem
   # - main:  github main branches (but problems with caching)
   # - tag:   explicit tagged versions specified in this file
-  # - rel:   versions written in the checked-in deps.ex file
-  #          which is over-written by the 'tag' phase
+  #          which are then written to the 'deps.ex' file
+  # - rel:   versions read from the checked-in 'deps.ex' file
 
   @typep scope() :: :local | :main | :tag | :rel
   @typep lib() :: atom()
@@ -27,18 +27,19 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.3.1",
-    :exa_space => "v0.3.1",
-    :exa_color => "v0.3.1",
-    :exa_std => "v0.3.1",
-    :exa_csv => "v0.3.1",
-    :exa_json => "v0.3.1",
-    :exa_gis => "v0.3.1",
-    :exa_graf => "v0.3.1",
-    :exa_image => "v0.3.1"
+    :exa_core => "v0.3.2",
+    :exa_space => "v0.3.2",
+    :exa_color => "v0.3.2",
+    :exa_std => "v0.3.2",
+    :exa_csv => "v0.3.2",
+    :exa_json => "v0.3.2",
+    :exa_gis => "v0.3.2",
+    :exa_graf => "v0.3.2",
+    :exa_image => "v0.3.2"
   }
 
   # default set of support libraries
+  # these can be referred to by atom name in the libs list
 
   @sup_deps [
     # typechecking
@@ -88,10 +89,10 @@ defmodule Exa.MixUtil do
 
   @spec do_deps(String.t(), lib(), [lib()]) :: [dep()]
   defp do_deps(cmd, name, libs) do
-    scope = arg_build()
+    scope = arg_scope()
     deps_path = deps_file(scope)
 
-    if scope != :rel and not File.exists?(deps_path) do
+    if scope == :tag or (scope in [:local, :main] and not File.exists?(deps_path)) do
       write_deps_file(scope, libs, deps_path)
     end
 
@@ -131,9 +132,9 @@ defmodule Exa.MixUtil do
 
   # convert a library atom key to a mix dependency
   @spec lib2dep(scope(), lib()) :: dep()
-  defp lib2dep(:local, lib), do: {lib, [path: path(lib), app: false]}
-  defp lib2dep(:tag, lib),   do: {lib, [git: repo(lib), tag: tag(lib), app: false]}
-  defp lib2dep(:main, lib),  do: {lib, [git: repo(lib), branch: "main", app: false]}
+  defp lib2dep(:local, lib), do: {lib, [path: path(lib)]}
+  defp lib2dep(:tag, lib),   do: {lib, [git: repo(lib), tag: tag(lib)]}
+  defp lib2dep(:main, lib),  do: {lib, [git: repo(lib), branch: "main"]}
 
   # local path checked-out in sibling directory
   @spec path(lib()) :: String.t()
@@ -151,16 +152,16 @@ defmodule Exa.MixUtil do
   # transient files are written to deps subdirectory
   # release file is read/written to the top-level deps.ex
   @spec deps_file(scope()) :: String.t()
-  defp deps_file(:rel), do: Path.join([".", "deps.ex"])
-  defp deps_file(:tag), do: Path.join([".", "deps.ex"])
+  defp deps_file(:rel), do: "deps.ex"
+  defp deps_file(:tag), do: "deps.ex"
   defp deps_file(scope), do: Path.join([".", "deps", "deps_#{scope}.ex"])
 
   # parse the build scope from:
   # - mix command line --build option
   # - EXA_BUILD system environment variable
-  # - default to "rel"
-  @spec arg_build() :: scope()
-  defp arg_build() do
+  # - default to :rel
+  @spec arg_scope() :: scope()
+  defp arg_scope() do
     default =
       case System.fetch_env("EXA_BUILD") do
         :error -> "rel"
