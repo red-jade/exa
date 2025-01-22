@@ -259,6 +259,18 @@ Repo link: [exa_graf](https://github.com/red-jade/exa_graf)
 
 Features:
 
+Directed graph model:
+- nodes labelled by integers
+- directed edges are unlabelled and unweighted
+- simple: at most one edge in one direction between two nodes
+- self-loops are allowed
+- cycles are allowed
+- unconnected graphs are allowed
+
+Undirected graphs are supported by either:
+- duplicating directed edges in both directions
+- using weakly connected flag for various algorithms
+
 The _adj_ functional data structure for directed graphs,
 based on in-memory in-process adjacency lists.
 
@@ -319,6 +331,9 @@ then comparing for isomorphism.
 Relabelling of graphs to permute vertex identifiers.
 Combining graphs using _merge_ of vertices and edges,
 or _disjoint_ independent composition.
+
+GDB: An in-memory store of graphs keyed by structural hashes,
+which supports queries for isomorphism and homeomorphism.
 
 Serialization of _adj_ data to/from files 
 using Elixir term format.
