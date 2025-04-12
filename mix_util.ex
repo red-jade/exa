@@ -30,7 +30,7 @@ defmodule Exa.MixUtil do
     :exa_core => "v0.3.3",
     :exa_space => "v0.3.5",
     :exa_color => "v0.3.2",
-    :exa_std => "v0.3.3",
+    :exa_std => "v0.3.5",
     :exa_csv => "v0.3.2",
     :exa_json => "v0.3.2",
     :exa_gis => "v0.3.2",
