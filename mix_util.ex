@@ -27,10 +27,10 @@ defmodule Exa.MixUtil do
   # exa dependency github tag version
 
   @exa_tags %{
-    :exa_core => "v0.3.2",
-    :exa_space => "v0.3.2",
+    :exa_core => "v0.3.3",
+    :exa_space => "v0.3.3",
     :exa_color => "v0.3.2",
-    :exa_std => "v0.3.2",
+    :exa_std => "v0.3.3",
     :exa_csv => "v0.3.2",
     :exa_json => "v0.3.2",
     :exa_gis => "v0.3.2",

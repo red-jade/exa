@@ -143,8 +143,16 @@ Features:
 - Character Stream: incremental char from a binary String with line/column address
 - Tidal: managing out-of-order streaming sequence (integer IDs)
 - Map of Lists (MoL)
-- Map of sets (MoS)
+- Map of Sets (MoS)
 - Yet Another Zip List (yazl): list with local cursor
+- Minimum Heap of key-value pairs (Sorted Map),
+  which can also be used as a Priority Queue.
+
+The Minimum Heap is expressed as a protocol,
+with three concrete implementations:
+- map and minimum-valued index
+- ordered list
+- complete binary tree
 
 ### Exa Space 
 
